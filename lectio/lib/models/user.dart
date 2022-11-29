@@ -3,7 +3,7 @@ import 'package:lectio/config/DBHelper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class User {
-  int? _id;
+  late int _id;
   String? _name;
   String? _born;
   String? _sex;
@@ -11,8 +11,7 @@ class User {
   String? _password;
   Uint8List? _photo;
 
-  User(this._id, this._name, this._born, this._sex, this._photo, this._username,
-      this._password);
+  User();
 
   User.fromMap(Map map) {
     _id = map['id'];
@@ -38,7 +37,7 @@ class User {
 
   @override
   String toString() {
-    return '''Dog{
+    return '''User{
       id: $_id,
       name: $_name, 
       born: $_born, 
@@ -46,6 +45,24 @@ class User {
       username: $_username,
       password: $_password}
       photo: $_photo,''';
+  }
+
+  int? get getId => _id;
+
+  void setName(String name) {
+    _name = name;
+  }
+
+  void setBorn(String born) {
+    _born = born;
+  }
+
+  void setUsername(String username) {
+    _username = username;
+  }
+
+  void setPassword(String password) {
+    _password = password;
   }
 
   static Future<User?> getUserById(int id) async {

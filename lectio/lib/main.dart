@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lectio/config/DBHelper.dart';
 import 'dart:core';
 
 import 'package:lectio/views/signin.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

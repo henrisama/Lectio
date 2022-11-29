@@ -52,7 +52,7 @@ class Reading {
   static Future<List<Reading>> getReadingsByUserId(int userId) async {
     Database db = await DBHelper.instance.database;
     List<Map> raw =
-        await db.rawQuery('SELECT * FROM User WHERE reader = ?', [userId]);
+        await db.rawQuery('SELECT * FROM Reading WHERE reader = ?', [userId]);
 
     if (raw.isNotEmpty) {
       List<Reading> readings = [];

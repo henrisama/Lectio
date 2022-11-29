@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lectio/models/reading.dart';
 import 'package:lectio/views/profile.dart';
+import 'package:lectio/widgets/readingCard.dart';
 
 class Readings extends StatefulWidget {
   final int userId;
@@ -10,11 +12,13 @@ class Readings extends StatefulWidget {
 }
 
 class _ReadingsState extends State<Readings> {
-  _getData(int userId) async {
-    return [];
+  Future<List<Reading>> _getReadings(int userId) async {
+    return await Reading.getReadingsByUserId(userId);
   }
 
-  _readingPopUp({int? id}) async {
+  _createReading() async {}
+
+  _createPopUp() async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -37,9 +41,8 @@ class _ReadingsState extends State<Readings> {
             ),
             actions: [
               ElevatedButton(
-                  onPressed: () async => await _createOrUpdate(id: id),
-                  child:
-                      id == null ? const Text("Criar") : const Text("Salvar")),
+                  onPressed: () async => await _createReading(),
+                  child: const Text("Criar")),
               ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Text("Fechar"))
@@ -48,53 +51,14 @@ class _ReadingsState extends State<Readings> {
         });
   }
 
-  _createOrUpdate({int? id}) async {
-    if (id != null) {
-      // update
-    } else {
-      // create
-    }
-  }
-
-  Widget _showReadings() {
-    return Card(
-      color: Colors.pink,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text("Title"),
-          const Text("Author"),
-          const Text("Status"),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                  onPressed: () async => await _readingPopUp(id: 1),
-                  child: const Text("Editar")),
-              const Padding(padding: EdgeInsets.only(left: 10)),
-              ElevatedButton(
-                  onPressed: () async => await _deleteReading(id: 1),
-                  child: const Text("Excluir"))
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   _navigateToProfile() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Profile()));
   }
 
-  _deleteReading({required int id}) async {}
-
   @override
   void initState() {
-    _getData(widget.userId);
+    _getReadings(widget.userId);
     super.initState();
   }
 
@@ -115,10 +79,25 @@ class _ReadingsState extends State<Readings> {
         ],
       ),
       body: Container(
-        child: _showReadings(),
-      ),
+          color: Colors.grey,
+          child: FutureBuilder(
+              future: _getReadings(widget.userId),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Erro ao carregar dados'));
+                  } else {
+                    //print(snapshot.data);
+                    return const Center(
+                      child: Text('Teste'),
+                    );
+                  }
+                }
+              })),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async => await _readingPopUp(id: null),
+        onPressed: _createPopUp,
         child: const Icon(Icons.add),
       ),
     );

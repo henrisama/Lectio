@@ -45,9 +45,9 @@ class DBHelper {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           title TEXT NOT NULL,
           author TEXT NOT NULL,
-          status CHECK(status IN ('read','reading','to read')),
+          status CHECK(status IN ('read','reading','to read')) NOT NULL,
           date_opening TEXT NOT NULL,
-          date_closing TEXT NOT NULL,
+          date_closing TEXT,
           reader INTEGER NOT NULL,
           FOREIGN KEY (reader) REFERENCES User(id)
             ON DELETE CASCADE ON UPDATE CASCADE

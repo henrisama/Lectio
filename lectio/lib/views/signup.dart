@@ -45,7 +45,7 @@ class _SignUpState extends State<SignUp> {
 
     int result = await user.create();
 
-    if (result != 1) {
+    if (result != 0) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
         "Cadastro realizado",

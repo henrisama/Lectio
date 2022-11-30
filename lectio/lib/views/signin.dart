@@ -25,9 +25,13 @@ class _SignInState extends State<SignIn> {
     String username = usernameController.text;
     String password = passwordController.text;
 
+    if (username.isEmpty || password.isEmpty) {
+      return null;
+    }
+
     User? user = await User.getUserByUsername(username);
 
-    debugPrint(user.toString());
+    //debugPrint(user.toString());
 
     if (user != null) {
       int userId = user.getId ?? 0;
@@ -47,6 +51,12 @@ class _SignInState extends State<SignIn> {
           textAlign: TextAlign.center,
         )));
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+        "Usuário não existe!",
+        textAlign: TextAlign.center,
+      )));
     }
   }
 

@@ -3,7 +3,7 @@ import 'package:lectio/config/DBHelper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class User {
-  late int _id;
+  int? _id;
   String? _name;
   String? _born;
   String? _sex;

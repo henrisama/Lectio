@@ -5,17 +5,17 @@ import 'package:sqflite/sqflite.dart';
 
 class Reading {
   int? _id;
-  String? _title;
-  String? _author;
-  String? _status;
-  String? _date_opening;
+  late String _title;
+  late String _author;
+  late String _status;
+  late String _date_opening;
   String? _date_closing;
-  int? _reader;
+  late int _reader;
 
-  Reading(this._id, this._title, this._author, this._status, this._date_opening,
-      this._date_closing, this._reader);
+  Reading(this._title, this._author, this._status, this._date_opening,
+      this._reader);
 
-  Reading.fromMap(Map map) {
+  Reading.fromMap(Map<dynamic, dynamic> map) {
     _id = map['id'];
     _title = map['title'];
     _author = map['author'];
@@ -39,7 +39,7 @@ class Reading {
 
   @override
   String toString() {
-    return '''Dog{
+    return '''Reading{
       id: $_id,
       title: $_title, 
       author: $_author, 
@@ -47,6 +47,38 @@ class Reading {
       date_opening: $_date_opening,
       date_closing: $_date_closing,
       reader: $_reader}''';
+  }
+
+  int? get getId => _id;
+
+  String get getTitle => _title;
+
+  void setTitle(String title) {
+    _title = title;
+  }
+
+  String get getAuthor => _author;
+
+  void setAuthor(String author) {
+    _author = author;
+  }
+
+  String get getStatus => _status;
+
+  void setStatus(String status) {
+    _status = status;
+  }
+
+  void setDateOpening(String date_opening) {
+    _date_opening = date_opening;
+  }
+
+  void setDateClosing(String date_closing) {
+    _date_closing = date_closing;
+  }
+
+  void setReader(int reader) {
+    _reader = reader;
   }
 
   static Future<List<Reading>> getReadingsByUserId(int userId) async {

@@ -18,7 +18,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   User? _user;
   Uint8List _avatar = Uint8List(0);
-  late Uint8List uploadedImage;
+  Uint8List uploadedImage = Uint8List(0);
   final ImagePicker _picker = ImagePicker();
 
   TextEditingController nameController = TextEditingController();
@@ -35,7 +35,9 @@ class _ProfileState extends State<Profile> {
       bornController.text = _user!.getBorn;
       usernameController.text = _user!.getUsername;
       _avatar = _user!.getPhoto!;
-      setState(() {});
+      setState(() {
+        nameController.text = _user!.getName;
+      });
     }
   }
 
@@ -202,8 +204,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    _getUser();
     super.initState();
+    _getUser();
   }
 
   @override

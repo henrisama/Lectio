@@ -4,11 +4,11 @@ import 'package:sqflite/sqflite.dart';
 
 class User {
   int? _id;
-  String? _name;
-  String? _born;
+  late String _name;
+  late String _born;
   String? _sex;
-  String? _username;
-  String? _password;
+  late String _username;
+  late String _password;
   Uint8List? _photo;
 
   User();
@@ -49,13 +49,19 @@ class User {
 
   int? get getId => _id;
 
+  String get getName => _name;
+
   void setName(String name) {
     _name = name;
   }
 
+  String get getBorn => _born;
+
   void setBorn(String born) {
     _born = born;
   }
+
+  String get getUsername => _username;
 
   void setUsername(String username) {
     _username = username;
@@ -63,6 +69,12 @@ class User {
 
   void setPassword(String password) {
     _password = password;
+  }
+
+  Uint8List? get getPhoto => _photo;
+
+  void setPhoto(Uint8List photo) {
+    _photo = photo;
   }
 
   static Future<User?> getUserById(int id) async {

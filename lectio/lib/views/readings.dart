@@ -33,7 +33,11 @@ class _ReadingsState extends State<Readings> {
 
   _navigateToProfile() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Profile()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => Profile(
+                  userId: widget.userId,
+                )));
   }
 
   _createReading() async {
